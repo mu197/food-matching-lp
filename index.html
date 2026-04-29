@@ -11,207 +11,1504 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&family=Noto+Serif+JP:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
-
 :root {
-
   --green-900: #14532d;
-
   --green-700: #2d7a3e;
-
   --green-500: #16a34a;
-
   --green-100: #dcfce7;
-
   --green-50:  #f0fdf4;
-
   --orange-900: #7c2d12;
-
   --orange-700: #c2410c;
-
   --orange-500: #ea580c;
-
   --orange-400: #f97316;
-
   --orange-300: #fdba74;
-
   --orange-100: #ffedd5;
-
   --orange-50:  #fff7ed;
-
   --red-600:   #dc2626;
-
   --red-500:   #ef4444;
-
   --cream:     #fffaf3;
-
   --ink:       #1f2937;
-
   --ink-soft:  #4b5563;
-
   --line:      #e5e7eb;
-
   --gold:      #d97706;
-
   --shadow:    0 10px 30px rgba(20, 83, 45, 0.08);
-
   --shadow-lg: 0 20px 50px rgba(234, 88, 12, 0.18);
-
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; scroll-padding-top: 90px; background: #0a2818; width: 100%; max-width: 100%; }
-
-body { font-family: "Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif; color: var(--ink); background: white; line-height: 1.75; font-size: 16px; -webkit-font-smoothing: antialiased; width: 100%; max-width: 100%; overflow-x: clip; min-height: 100vh; position: relative; }
-
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;       /* offset for sticky header so anchors don't hide behind it */
+  background: #0a2818;            /* footer color — fills any overflow gap on Google Sites iframe */
+  width: 100%;
+  max-width: 100%;
+}
+body {
+  font-family: "Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  color: var(--ink);
+  background: white;
+  line-height: 1.75;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;               /* clip (not hidden) so anchor scroll still works */
+  min-height: 100vh;
+  position: relative;
+}
+/* per-section scroll margin so smooth-scroll anchors clear the sticky header */
 section[id], #top { scroll-margin-top: 90px; }
-
 img, svg { max-width: 100%; display: block; }
-
 a { color: inherit; text-decoration: none; }
-
 .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
 
-.announce-bar { background: linear-gradient(90deg, var(--orange-700), var(--orange-500), var(--red-500)); color: white; padding: 10px 0; font-size: 13px; font-weight: 800; text-align: center; letter-spacing: 0.05em; position: relative; overflow: hidden; }
-
-.announce-bar::after { content:''; position: absolute; inset:0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent); animation: sweep 4s infinite; }
-
+/* ========== ANNOUNCEMENT BAR ========== */
+.announce-bar {
+  background: linear-gradient(90deg, var(--orange-700), var(--orange-500), var(--red-500));
+  color: white;
+  padding: 10px 0;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+}
+.announce-bar::after {
+  content:''; position: absolute; inset:0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  animation: sweep 4s infinite;
+}
 @keyframes sweep { 0% { transform: translateX(-100%);} 100% { transform: translateX(100%);} }
-
-.announce-bar .pulse-dot { display: inline-block; width: 8px; height: 8px; background: #fde047; border-radius: 50%; margin-right: 8px; animation: pulse 1.4s infinite; vertical-align: middle; }
-
-@keyframes pulse { 0%,100% { transform: scale(1); opacity: 1;} 50% { transform: scale(1.5); opacity: 0.6;} }
-
+.announce-bar .pulse-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: #fde047;
+  border-radius: 50%;
+  margin-right: 8px;
+  animation: pulse 1.4s infinite;
+  vertical-align: middle;
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); opacity: 1;}
+  50% { transform: scale(1.5); opacity: 0.6;}
+}
 .announce-bar a { text-decoration: underline; margin-left: 8px; }
 
-.site-header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-
-.site-header .container { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; padding-bottom: 14px; }
-
+/* ========== HEADER ========== */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.site-header .container {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 14px; padding-bottom: 14px;
+}
 .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; color: var(--green-900); }
-
-.brand .mark { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--green-500), var(--orange-400)); display: flex; align-items: center; justify-content: center; color: white; font-family: "Noto Serif JP", serif; font-weight: 800; position: relative; }
-
-.brand .mark::after { content: ''; position: absolute; inset: 4px; border-radius: 50%; border: 2px solid white; }
-
+.brand .mark {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--green-500), var(--orange-400));
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  font-family: "Noto Serif JP", serif;
+  font-weight: 800;
+  position: relative;
+}
+.brand .mark::after {
+  content: ''; position: absolute; inset: 4px;
+  border-radius: 50%; border: 2px solid white;
+}
 .brand .mark span { position: relative; z-index:1; font-size: 14px; }
-
 .brand .name { display: flex; flex-direction: column; line-height: 1.2; }
-
 .brand .name .ja { font-size: 14px; font-weight: 800; }
-
 .brand .name .en { font-size: 10px; color: var(--ink-soft); font-weight: 600; letter-spacing: 0.12em; }
-
-.brand .name .badge { display: inline-block; font-size: 10px; font-weight: 800; background: var(--orange-500); color: white; padding: 2px 8px; border-radius: 4px; margin-top: 2px; letter-spacing: 0.06em; width: fit-content; }
-
+.brand .name .badge {
+  display: inline-block; font-size: 10px; font-weight: 800;
+  background: var(--orange-500); color: white;
+  padding: 2px 8px; border-radius: 4px; margin-top: 2px;
+  letter-spacing: 0.06em; width: fit-content;
+}
 .nav { display: flex; align-items: center; gap: 24px; }
-
 .nav a { font-size: 13px; font-weight: 700; color: var(--ink-soft); transition: color 0.15s; }
-
 .nav a:hover { color: var(--orange-700); }
-
-.nav .cta-btn { background: var(--orange-500); color: white !important; padding: 10px 18px; border-radius: 999px; box-shadow: 0 6px 14px rgba(234, 88, 12, 0.35); font-size: 13px; position: relative; animation: btn-glow 2.4s infinite; }
-
-@keyframes btn-glow { 0%,100% { box-shadow: 0 6px 14px rgba(234, 88, 12, 0.35);} 50% { box-shadow: 0 8px 22px rgba(234, 88, 12, 0.6);} }
-
+.nav .cta-btn {
+  background: var(--orange-500);
+  color: white !important;
+  padding: 10px 18px;
+  border-radius: 999px;
+  box-shadow: 0 6px 14px rgba(234, 88, 12, 0.35);
+  font-size: 13px;
+  position: relative;
+  animation: btn-glow 2.4s infinite;
+}
+@keyframes btn-glow {
+  0%,100% { box-shadow: 0 6px 14px rgba(234, 88, 12, 0.35);}
+  50% { box-shadow: 0 8px 22px rgba(234, 88, 12, 0.6);}
+}
 .nav .cta-btn:hover { background: var(--orange-700); transform: translateY(-1px); }
+@media (max-width: 900px) {
+  .nav { gap: 12px; }
+  .nav a:not(.cta-btn) { display: none; }
+}
 
-@media (max-width: 900px) { .nav { gap: 12px; } .nav a:not(.cta-btn) { display: none; } }
-
-.hero { background: radial-gradient(ellipse at 80% 20%, rgba(249,115,22,0.18), transparent 55%), radial-gradient(ellipse at 10% 80%, rgba(22,163,74,0.10), transparent 55%), var(--cream); padding: 70px 0 90px; position: relative; overflow: hidden; }
-
-.hero .container { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; position: relative; z-index: 1; }
-
-.hero .recruit-badge { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 900; color: white; background: linear-gradient(90deg, var(--red-600), var(--orange-500)); padding: 9px 20px; border-radius: 999px; box-shadow: 0 6px 14px rgba(220,38,38,0.3); margin-bottom: 24px; letter-spacing: 0.08em; }
-
-.hero .recruit-badge .icon { width: 8px; height: 8px; background: white; border-radius: 50%; animation: pulse 1.4s infinite; }
-
-.hero h1 { font-family: "Noto Serif JP","Yu Mincho",serif; font-size: clamp(34px, 5vw, 60px); font-weight: 900; color: var(--green-900); line-height: 1.2; margin-bottom: 22px; letter-spacing: 0.005em; }
-
-.hero h1 .highlight { background: linear-gradient(transparent 65%, rgba(249,115,22,0.4) 65%); padding: 0 4px; }
-
+/* ========== HERO ========== */
+.hero {
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(249,115,22,0.18), transparent 55%),
+    radial-gradient(ellipse at 10% 80%, rgba(22,163,74,0.10), transparent 55%),
+    var(--cream);
+  padding: 70px 0 90px;
+  position: relative;
+  overflow: hidden;
+}
+.hero .container {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 56px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.hero .recruit-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 900;
+  color: white;
+  background: linear-gradient(90deg, var(--red-600), var(--orange-500));
+  padding: 9px 20px;
+  border-radius: 999px;
+  box-shadow: 0 6px 14px rgba(220,38,38,0.3);
+  margin-bottom: 24px;
+  letter-spacing: 0.08em;
+}
+.hero .recruit-badge .icon {
+  width: 8px; height: 8px;
+  background: white;
+  border-radius: 50%;
+  animation: pulse 1.4s infinite;
+}
+.hero h1 {
+  font-family: "Noto Serif JP","Yu Mincho",serif;
+  font-size: clamp(34px, 5vw, 60px);
+  font-weight: 900;
+  color: var(--green-900);
+  line-height: 1.2;
+  margin-bottom: 22px;
+  letter-spacing: 0.005em;
+}
+.hero h1 .highlight {
+  background: linear-gradient(transparent 65%, rgba(249,115,22,0.4) 65%);
+  padding: 0 4px;
+}
 .hero h1 .o { color: var(--orange-500); }
-
-.hero .subline { font-size: 18px; color: var(--orange-700); font-weight: 800; margin-bottom: 16px; }
-
-.hero .lead { font-size: 16px; color: var(--ink-soft); line-height: 1.9; margin-bottom: 32px; }
-
+.hero .subline {
+  font-size: 18px;
+  color: var(--orange-700);
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+.hero .lead {
+  font-size: 16px;
+  color: var(--ink-soft);
+  line-height: 1.9;
+  margin-bottom: 32px;
+}
 .hero .lead strong { color: var(--orange-700); font-weight: 800; }
-
 .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; }
-
-.btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 28px; border-radius: 999px; font-weight: 800; font-size: 15px; transition: all 0.2s; cursor: pointer; border: none; }
-
-.btn-primary { background: linear-gradient(135deg, var(--orange-500), var(--orange-700)); color: white; box-shadow: 0 12px 28px rgba(234,88,12,0.4); }
-
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 28px; border-radius: 999px;
+  font-weight: 800; font-size: 15px;
+  transition: all 0.2s; cursor: pointer; border: none;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--orange-500), var(--orange-700));
+  color: white;
+  box-shadow: 0 12px 28px rgba(234,88,12,0.4);
+}
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(234,88,12,0.5); }
-
-.btn-secondary { background: white; color: var(--green-900); border: 2px solid var(--green-500); }
-
+.btn-secondary {
+  background: white;
+  color: var(--green-900);
+  border: 2px solid var(--green-500);
+}
 .btn-secondary:hover { background: var(--green-50); }
-
 .btn .arrow { transition: transform 0.2s; }
-
 .btn:hover .arrow { transform: translateX(4px); }
 
 .hero-visual { position: relative; }
-
 .hero-visual svg { filter: drop-shadow(0 24px 50px rgba(20,83,45,0.18)); }
 
-@media (max-width: 900px) { .hero { padding: 50px 0 60px; } .hero .container { grid-template-columns: 1fr; gap: 40px; } }
+@media (max-width: 900px) {
+  .hero { padding: 50px 0 60px; }
+  .hero .container { grid-template-columns: 1fr; gap: 40px; }
+}
 
+/* ========== SECTION ========== */
 .section { padding: 100px 0; }
-
 .section.alt { background: var(--green-50); }
-
 .section.cream { background: var(--cream); }
-
-.section.dark { background: linear-gradient(135deg, var(--green-900) 0%, var(--green-700) 100%); color: white; position: relative; overflow: hidden; }
-
-.section.dark::before { content: ''; position: absolute; top: -150px; right: -150px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(249,115,22,0.25), transparent 70%); }
-
+.section.dark {
+  background: linear-gradient(135deg, var(--green-900) 0%, var(--green-700) 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.section.dark::before {
+  content: ''; position: absolute;
+  top: -150px; right: -150px; width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(249,115,22,0.25), transparent 70%);
+}
 .section.dark .container { position: relative; z-index: 1; }
 
 .section-head { text-align: center; margin-bottom: 56px; }
-
-.eyebrow { display: inline-block; font-size: 13px; font-weight: 900; color: var(--orange-500); letter-spacing: 0.2em; margin-bottom: 16px; position: relative; padding: 0 28px; }
-
-.eyebrow::before, .eyebrow::after { content: ''; position: absolute; top: 50%; width: 18px; height: 2px; background: var(--orange-500); }
-
+.eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--orange-500);
+  letter-spacing: 0.2em;
+  margin-bottom: 16px;
+  position: relative;
+  padding: 0 28px;
+}
+.eyebrow::before, .eyebrow::after {
+  content: ''; position: absolute; top: 50%;
+  width: 18px; height: 2px; background: var(--orange-500);
+}
 .eyebrow::before { left: 0; }
-
 .eyebrow::after { right: 0; }
-
 .section.dark .eyebrow { color: var(--orange-300); }
-
 .section.dark .eyebrow::before, .section.dark .eyebrow::after { background: var(--orange-300); }
-
-.section-title-h2 { font-family: "Noto Serif JP", serif; font-size: clamp(28px, 3.5vw, 40px); font-weight: 900; color: var(--green-900); line-height: 1.35; margin-bottom: 14px; }
-
+.section-title-h2 {
+  font-family: "Noto Serif JP", serif;
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 900;
+  color: var(--green-900);
+  line-height: 1.35;
+  margin-bottom: 14px;
+}
 .section.dark .section-title-h2 { color: white; }
-
 .section-title-h2 .em { color: var(--orange-500); }
-
-.section-sub { font-size: 16px; color: var(--ink-soft); max-width: 760px; margin: 0 auto; line-height: 1.9; }
-
+.section-sub {
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 760px; margin: 0 auto;
+  line-height: 1.9;
+}
 .section.dark .section-sub { color: rgba(255,255,255,0.85); }
 
-.footer { background: #0a2818; color: white; padding: 56px 0 24px; }
+/* ========== SECTION 1: PROJECT ========== */
+.project-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.project-intro .text h3 {
+  font-family: "Noto Serif JP", serif;
+  font-size: 24px;
+  color: var(--green-900);
+  font-weight: 800;
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+.project-intro .text p {
+  font-size: 15px;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+  line-height: 1.95;
+}
+.project-intro .text p strong { color: var(--orange-700); font-weight: 800; }
+.project-stat-card {
+  background: white;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow);
+  border: 1.5px solid var(--green-100);
+}
+.project-stat-card h4 {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--orange-500);
+  letter-spacing: 0.12em;
+  margin-bottom: 22px;
+  display: flex; align-items: center; gap: 10px;
+}
+.project-stat-card h4::before {
+  content:''; width: 24px; height: 3px; background: var(--orange-500);
+}
+.stat-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.stat-row:last-child { border-bottom: none; }
+.stat-row .label { font-size: 14px; color: var(--ink-soft); font-weight: 600; }
+.stat-row .value {
+  font-family: "Noto Serif JP", serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--green-700);
+}
+.stat-row .value small { font-size: 13px; }
 
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 11px; color: rgba(255,255,255,0.55); }
+@media (max-width: 900px) {
+  .project-intro { grid-template-columns: 1fr; gap: 36px; }
+}
 
-.fab { position: fixed; bottom: 24px; right: 24px; z-index: 90; background: linear-gradient(135deg, var(--orange-500), var(--red-500)); color: white; padding: 14px 22px; border-radius: 999px; font-size: 14px; font-weight: 900; box-shadow: 0 14px 28px rgba(234,88,12,0.45); display: inline-flex; align-items: center; gap: 8px; animation: btn-glow 2.4s infinite; }
+/* ========== SECTION 2: VISION ========== */
+.vision-hero {
+  background: white;
+  border-radius: 24px;
+  padding: 56px 48px;
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--orange-100);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 36px;
+}
+.vision-hero::before {
+  content:'"'; position: absolute;
+  top: -30px; left: 24px;
+  font-family: "Noto Serif JP", serif;
+  font-size: 180px; font-weight: 900;
+  color: rgba(249,115,22,0.10);
+  line-height: 1;
+}
+.vision-statement {
+  font-family: "Noto Serif JP", serif;
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 800;
+  color: var(--green-900);
+  line-height: 1.8;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.vision-statement .accent {
+  background: linear-gradient(transparent 60%, rgba(249,115,22,0.35) 60%);
+  padding: 0 6px;
+}
+.vision-statement .o { color: var(--orange-500); font-weight: 900; }
 
+.vision-pillars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+@media (max-width: 1100px) {
+  .vision-pillars { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+}
+.pillar-card {
+  background: white;
+  padding: 28px 22px;
+  border-radius: 16px;
+  border: 1.5px solid var(--green-100);
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.pillar-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.pillar-card .icon {
+  width: 64px; height: 64px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange-100), var(--orange-50));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px;
+}
+.pillar-card h4 {
+  font-family: "Noto Serif JP", serif;
+  font-size: 17px;
+  font-weight: 900;
+  color: var(--green-900);
+  margin-bottom: 10px;
+}
+.pillar-card p {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+
+@media (max-width: 900px) {
+  .vision-pillars { grid-template-columns: 1fr; }
+  .vision-hero { padding: 36px 24px; }
+}
+
+/* ========== SECTION 3: PLATFORM FLOW ========== */
+.flow-wrap { display: grid; gap: 28px; }
+.flow-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  background: white;
+  border-radius: 20px;
+  padding: 32px;
+  border: 1.5px solid var(--green-100);
+  align-items: center;
+}
+.flow-row.recipient { border-color: var(--orange-100); }
+.flow-label {
+  border-radius: 14px;
+  padding: 22px 18px;
+  text-align: center;
+  color: white;
+}
+.flow-row.donor .flow-label { background: linear-gradient(135deg, var(--green-700), var(--green-500)); }
+.flow-row.recipient .flow-label { background: linear-gradient(135deg, var(--orange-500), var(--orange-400)); }
+.flow-label .role-tag {
+  font-size: 11px; font-weight: 800;
+  letter-spacing: 0.12em;
+  opacity: 0.85;
+  margin-bottom: 6px;
+}
+.flow-label .role-name {
+  font-family: "Noto Serif JP", serif;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.3;
+}
+.flow-label .role-icon { font-size: 32px; margin-bottom: 6px; }
+.flow-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  position: relative;
+}
+.flow-step {
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 14px 12px;
+  text-align: center;
+  border: 1.5px solid transparent;
+  position: relative;
+}
+.flow-row.donor .flow-step { border-color: var(--green-100); }
+.flow-row.recipient .flow-step { border-color: var(--orange-100); }
+.flow-step .num {
+  display: inline-block;
+  font-family: "Noto Serif JP", serif;
+  font-size: 12px;
+  font-weight: 900;
+  background: var(--green-700);
+  color: white;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  line-height: 22px;
+  margin-bottom: 8px;
+}
+.flow-row.recipient .flow-step .num { background: var(--orange-500); }
+.flow-step h5 {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--green-900);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.flow-step p {
+  font-size: 11px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.flow-step:not(:last-child)::after {
+  content:'›';
+  position: absolute;
+  right: -6px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 22px; font-weight: 800;
+  color: var(--orange-400);
+  z-index: 2;
+}
+
+@media (max-width: 900px) {
+  .flow-row { grid-template-columns: 1fr; padding: 24px; }
+  .flow-steps { grid-template-columns: repeat(2, 1fr); }
+  .flow-step:not(:last-child)::after { display: none; }
+}
+
+/* ========== SECTION 4: HOW TO USE ========== */
+.usage-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background: white;
+}
+.usage-col {
+  padding: 44px 36px;
+}
+.usage-col.donor {
+  background: linear-gradient(180deg, var(--green-50), white 60%);
+  border-right: 1px dashed var(--line);
+}
+.usage-col.recipient {
+  background: linear-gradient(180deg, var(--orange-50), white 60%);
+}
+.usage-col .role-pill {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 6px 16px;
+  border-radius: 6px;
+  color: white;
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+}
+.usage-col.donor .role-pill { background: var(--green-700); }
+.usage-col.recipient .role-pill { background: var(--orange-500); }
+.usage-col h3 {
+  font-family: "Noto Serif JP", serif;
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 22px;
+}
+.usage-col.donor h3 { color: var(--green-900); }
+.usage-col.recipient h3 { color: var(--orange-700); }
+
+.usage-list { list-style: none; counter-reset: usage; }
+.usage-list li {
+  counter-increment: usage;
+  position: relative;
+  padding: 16px 18px 16px 60px;
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  border: 1.5px solid transparent;
+  font-size: 14px;
+  line-height: 1.65;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+.usage-col.donor .usage-list li { border-color: var(--green-100); }
+.usage-col.recipient .usage-list li { border-color: var(--orange-100); }
+.usage-list li::before {
+  content: counter(usage);
+  position: absolute;
+  left: 14px; top: 50%;
+  transform: translateY(-50%);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: "Noto Serif JP", serif;
+  font-weight: 900;
+  font-size: 16px;
+  color: white;
+}
+.usage-col.donor .usage-list li::before { background: var(--green-700); }
+.usage-col.recipient .usage-list li::before { background: var(--orange-500); }
+.usage-list li strong { font-weight: 800; }
+.usage-col.donor .usage-list li strong { color: var(--green-900); }
+.usage-col.recipient .usage-list li strong { color: var(--orange-700); }
+.usage-list li .small {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+
+@media (max-width: 900px) {
+  .usage-duo { grid-template-columns: 1fr; }
+  .usage-col.donor { border-right: none; border-bottom: 1px dashed var(--line); }
+  .usage-col { padding: 32px 22px; }
+}
+
+/* ========== SECTION 5: REGISTER ========== */
+.register-band {
+  background: linear-gradient(135deg, #fff7ed 0%, #fffaf3 100%);
+  border-radius: 24px;
+  padding: 48px 56px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+  border: 2px solid var(--orange-100);
+  box-shadow: var(--shadow);
+}
+.register-band h3 {
+  font-family: "Noto Serif JP", serif;
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--green-900);
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+.register-band h3 .em { color: var(--orange-500); }
+.register-band p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+  line-height: 1.85;
+}
+.register-band .url-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  padding: 10px 18px 10px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--green-200, #bbf7d0);
+  font-family: "Noto Sans Mono", monospace;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--green-900);
+}
+.register-band .url-display .icon { color: var(--green-700); }
+.register-band .btn-stack { display: flex; flex-direction: column; gap: 12px; min-width: 220px; }
+
+@media (max-width: 900px) {
+  .register-band { grid-template-columns: 1fr; padding: 32px 24px; }
+}
+
+/* ========== SECTION 6: SEMINAR (HIGHLIGHTED) ========== */
+.seminar-section {
+  background:
+    radial-gradient(ellipse at top right, rgba(249,115,22,0.20), transparent 50%),
+    radial-gradient(ellipse at bottom left, rgba(220,38,38,0.10), transparent 50%),
+    linear-gradient(180deg, #fff7ed 0%, #fffaf3 100%);
+  padding: 110px 0;
+  position: relative;
+  overflow: hidden;
+}
+.seminar-section::before {
+  content:''; position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--red-500), var(--orange-500), var(--gold), var(--orange-500), var(--red-500));
+  background-size: 200% 100%;
+  animation: rainbow 3s linear infinite;
+}
+@keyframes rainbow { 0% { background-position: 0 0;} 100% { background-position: 200% 0;} }
+.seminar-section .container { position: relative; z-index: 1; }
+.seminar-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--red-500);
+  color: white;
+  font-size: 13px;
+  font-weight: 900;
+  padding: 8px 20px;
+  border-radius: 999px;
+  letter-spacing: 0.1em;
+  margin-bottom: 18px;
+  box-shadow: 0 8px 18px rgba(220,38,38,0.3);
+}
+.seminar-eyebrow .live-dot {
+  width: 8px; height: 8px;
+  background: white;
+  border-radius: 50%;
+  animation: pulse 1.4s infinite;
+}
+.seminar-title {
+  font-family: "Noto Serif JP", serif;
+  font-size: clamp(34px, 5vw, 54px);
+  font-weight: 900;
+  color: var(--green-900);
+  line-height: 1.25;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.seminar-title .em { color: var(--orange-500); }
+.seminar-title .accent {
+  background: linear-gradient(transparent 60%, var(--orange-300) 60%);
+  padding: 0 6px;
+}
+.seminar-sub {
+  text-align: center;
+  font-size: 17px;
+  color: var(--ink-soft);
+  max-width: 760px;
+  margin: 0 auto 50px;
+  line-height: 1.9;
+}
+.seminar-sub strong { color: var(--orange-700); font-weight: 800; }
+
+.seminar-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 36px;
+}
+.seminar-card {
+  background: white;
+  border-radius: 20px;
+  padding: 36px 32px;
+  box-shadow: var(--shadow-lg);
+  border-top: 6px solid var(--orange-500);
+}
+.seminar-card .schedule-list { list-style: none; }
+.seminar-card .schedule-list li {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.seminar-card .schedule-list li:last-child { border-bottom: none; }
+.schedule-list .date-block {
+  background: var(--green-900);
+  color: white;
+  border-radius: 10px;
+  padding: 8px 14px;
+  text-align: center;
+  min-width: 90px;
+}
+.schedule-list .date-block .month { font-size: 11px; font-weight: 700; opacity: 0.85; }
+.schedule-list .date-block .day {
+  font-family: "Noto Serif JP", serif;
+  font-size: 22px; font-weight: 900;
+  line-height: 1;
+}
+.schedule-list .date-block .dow { font-size: 11px; font-weight: 700; opacity: 0.85; }
+.schedule-list .info .time {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--green-900);
+}
+.schedule-list .info .format {
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.schedule-list .status {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--green-100);
+  color: var(--green-900);
+  letter-spacing: 0.04em;
+}
+.schedule-list .status.few { background: var(--orange-100); color: var(--orange-700); }
+.schedule-list .status.full { background: #f3f4f6; color: #9ca3af; text-decoration: line-through; }
+
+.seminar-card h4 {
+  font-family: "Noto Serif JP", serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--green-900);
+  margin-bottom: 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.seminar-card h4 .ico {
+  width: 32px; height: 32px;
+  background: var(--orange-500);
+  color: white;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+
+.agenda-list { list-style: none; }
+.agenda-list li {
+  font-size: 14px;
+  padding: 10px 0 10px 28px;
+  position: relative;
+  line-height: 1.65;
+  color: var(--ink);
+}
+.agenda-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0; top: 12px;
+  color: var(--green-500);
+  font-weight: 900;
+  font-size: 16px;
+}
+.agenda-list li strong { color: var(--orange-700); font-weight: 800; }
+
+/* SEMINAR FORM */
+.seminar-form-wrap {
+  background: white;
+  border-radius: 24px;
+  padding: 48px;
+  box-shadow: var(--shadow-lg);
+  border: 3px solid var(--orange-500);
+  position: relative;
+}
+.seminar-form-wrap::before {
+  content: '応募フォーム';
+  position: absolute;
+  top: -16px; left: 32px;
+  background: var(--orange-500);
+  color: white;
+  font-size: 12px; font-weight: 900;
+  padding: 6px 18px;
+  border-radius: 8px;
+  letter-spacing: 0.12em;
+}
+.seminar-form-wrap h3 {
+  font-family: "Noto Serif JP", serif;
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--green-900);
+  margin-bottom: 8px;
+  text-align: center;
+}
+.seminar-form-wrap > p {
+  text-align: center;
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 20px;
+}
+.form-grid .full { grid-column: 1 / -1; }
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+.form-field label {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--green-900);
+  display: flex; align-items: center; gap: 8px;
+}
+.form-field label .req {
+  background: var(--red-500);
+  color: white;
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 800;
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  font-family: inherit;
+  font-size: 14px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background: var(--cream);
+  transition: border-color 0.15s, background 0.15s;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--orange-500);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(234,88,12,0.12);
+}
+.form-field textarea { resize: vertical; min-height: 90px; }
+.checkbox-group {
+  display: flex; flex-wrap: wrap; gap: 10px;
+}
+.checkbox-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--cream);
+}
+.checkbox-pill input { display: none; }
+.checkbox-pill:hover { border-color: var(--orange-500); }
+.checkbox-pill input:checked + span {
+  color: var(--orange-700);
+}
+.checkbox-pill:has(input:checked) {
+  background: white;
+  border-color: var(--orange-500);
+  box-shadow: 0 4px 12px rgba(234,88,12,0.18);
+}
+.form-submit {
+  margin-top: 28px;
+  text-align: center;
+}
+.form-submit button {
+  background: linear-gradient(135deg, var(--orange-500), var(--red-500));
+  color: white;
+  font-size: 17px;
+  font-weight: 900;
+  padding: 18px 60px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(234,88,12,0.45);
+  transition: all 0.2s;
+  letter-spacing: 0.04em;
+}
+.form-submit button:hover { transform: translateY(-2px); box-shadow: 0 18px 38px rgba(234,88,12,0.55); }
+.form-submit small {
+  display: block;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 900px) {
+  .seminar-grid { grid-template-columns: 1fr; }
+  .seminar-form-wrap { padding: 32px 22px; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+/* ========== WEEKLY HEADLINE ========== */
+.weekly-headline {
+  background: linear-gradient(135deg, var(--green-900), var(--green-700));
+  color: white;
+  border-radius: 20px;
+  padding: 36px 40px;
+  text-align: center;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.weekly-headline::before {
+  content:''; position: absolute;
+  top: -60px; right: -60px; width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(249,115,22,0.35), transparent 70%);
+}
+.weekly-headline::after {
+  content:''; position: absolute;
+  bottom: -80px; left: -80px; width: 240px; height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(253,224,71,0.18), transparent 70%);
+}
+.weekly-headline > * { position: relative; z-index: 1; }
+.weekly-tag {
+  display: inline-block;
+  background: var(--orange-500);
+  color: white;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 5px 16px;
+  border-radius: 999px;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+.weekly-main {
+  font-family: "Noto Serif JP", serif;
+  font-weight: 900;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.weekly-dow {
+  font-size: clamp(36px, 5vw, 56px);
+  color: var(--orange-300);
+  letter-spacing: 0.06em;
+}
+.weekly-time {
+  font-size: clamp(28px, 4vw, 44px);
+  color: white;
+  letter-spacing: 0.04em;
+}
+.weekly-period {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 6px;
+}
+.weekly-format {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+}
+
+/* ========== DATE PILL GRID ========== */
+.date-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+.date-pill {
+  background: linear-gradient(135deg, var(--cream), white);
+  border: 1.5px solid var(--orange-100);
+  border-radius: 10px;
+  padding: 10px 6px;
+  text-align: center;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.date-pill:hover {
+  transform: translateY(-2px);
+  border-color: var(--orange-500);
+  box-shadow: 0 4px 12px rgba(234,88,12,0.18);
+}
+.date-pill .m {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--orange-700);
+  letter-spacing: 0.04em;
+}
+.date-pill .d {
+  font-family: "Noto Serif JP", serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--green-900);
+  line-height: 1.1;
+}
+.date-pill .w {
+  font-size: 10px;
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+@media (max-width: 600px) {
+  .date-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ========== GOOGLE MEET INFO ========== */
+.meet-info {
+  background: white;
+  border-radius: 20px;
+  padding: 32px 36px;
+  box-shadow: var(--shadow);
+  border: 1.5px solid var(--green-100);
+  margin-bottom: 32px;
+}
+.meet-info-head {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 22px;
+  padding-bottom: 20px;
+  border-bottom: 1.5px dashed var(--line);
+}
+.meet-icon {
+  width: 56px; height: 56px;
+  background: linear-gradient(135deg, #00897b, #00695c);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.meet-title {
+  font-family: "Noto Serif JP", serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--green-900);
+}
+.meet-sub {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+.meet-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 20px;
+}
+.meet-item {
+  background: var(--green-50);
+  border-radius: 12px;
+  padding: 16px 18px;
+  border: 1px solid var(--green-100);
+}
+.meet-key {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--green-700);
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.meet-link {
+  font-family: "Noto Sans Mono", monospace;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--orange-700);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  word-break: break-all;
+}
+.meet-link:hover { text-decoration: underline; }
+.meet-link-small {
+  font-family: "Noto Sans Mono", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--orange-700);
+  word-break: break-all;
+}
+.meet-link-small:hover { text-decoration: underline; }
+.meet-arrow { font-size: 14px; color: var(--orange-500); }
+.meet-val {
+  font-family: "Noto Sans Mono", monospace;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--green-900);
+  margin-bottom: 6px;
+}
+.meet-pin {
+  font-family: "Noto Sans Mono", monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  word-break: break-all;
+}
+@media (max-width: 900px) {
+  .meet-grid { grid-template-columns: 1fr; }
+  .meet-info { padding: 24px 22px; }
+}
+
+/* ========== APPLY CTA ========== */
+.apply-cta {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 50%, #fff7ed 100%);
+  border-radius: 24px;
+  padding: 48px 32px;
+  text-align: center;
+  border: 3px solid var(--orange-500);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+.apply-cta-eyebrow {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--orange-700);
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+.apply-cta h3 {
+  font-family: "Noto Serif JP", serif;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 900;
+  color: var(--green-900);
+  margin-bottom: 12px;
+}
+.apply-cta p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+  line-height: 1.85;
+}
+.apply-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  background: linear-gradient(135deg, var(--orange-500), var(--red-500));
+  color: white;
+  padding: 20px 36px;
+  border-radius: 16px;
+  box-shadow: 0 14px 32px rgba(234,88,12,0.45);
+  transition: all 0.2s;
+  text-align: left;
+  max-width: 100%;
+}
+.apply-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 42px rgba(234,88,12,0.55); }
+.apply-btn-icon {
+  font-size: 30px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+  padding: 8px 12px;
+  flex-shrink: 0;
+}
+.apply-btn-text { display: flex; flex-direction: column; gap: 2px; }
+.apply-btn-main {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+.apply-btn-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.9);
+  font-weight: 600;
+}
+.apply-btn-arrow {
+  font-size: 24px;
+  font-weight: 900;
+  margin-left: 6px;
+  transition: transform 0.2s;
+}
+.apply-btn:hover .apply-btn-arrow { transform: translateX(6px); }
+.apply-cta small {
+  display: block;
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+@media (max-width: 600px) {
+  .apply-cta { padding: 36px 20px; }
+  .apply-btn { padding: 16px 22px; gap: 14px; }
+  .apply-btn-main { font-size: 16px; }
+}
+
+/* ========== MOBILE COMPACT (Google Sites embed friendly) ========== */
+@media (max-width: 768px) {
+  body { font-size: 15px; }
+  .container { padding: 0 18px; }
+  .section { padding: 56px 0; }
+  .section-head { margin-bottom: 36px; }
+  .hero { padding: 40px 0 50px; }
+  .seminar-section { padding: 64px 0; }
+  .weekly-headline { padding: 26px 22px; }
+  .weekly-period { font-size: 14px; }
+  .vision-hero { padding: 32px 22px; }
+  .seminar-card { padding: 26px 22px; }
+  .register-band { padding: 28px 22px; }
+  .footer { padding: 40px 0 24px; }
+  .announce-bar { font-size: 11.5px; padding: 8px 12px; line-height: 1.5; }
+  .announce-bar a { display: inline-block; margin-top: 2px; }
+  .seminar-eyebrow { font-size: 11px; padding: 7px 14px; }
+  .org-cat-card { padding: 22px 18px; }
+  .contact-info { padding: 26px 22px; }
+  .contact-cta { padding: 26px 22px; }
+  .contact-row { grid-template-columns: 80px 1fr; gap: 8px; padding: 10px 0; }
+  .contact-row .key { font-size: 11px; }
+  .contact-row .val { font-size: 13px; }
+}
+
+/* prevent any inner element from blowing out viewport width */
+img, svg, iframe, video, canvas { max-width: 100%; height: auto; }
+section, .container, .footer, header { max-width: 100vw; }
+
+/* ensure the dark contact section visually anchors the bottom even if iframe is taller */
+.section.dark { padding-bottom: 110px; }
+.footer { padding-bottom: 40px; }
+
+/* ========== SECTION 7: PARTICIPATING ORGS ========== */
+.org-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 30px;
+}
+.org-cat-card {
+  background: white;
+  border-radius: 18px;
+  padding: 28px 24px;
+  border: 1.5px solid var(--green-100);
+  text-align: center;
+}
+.org-cat-card .cat-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 4px 14px;
+  border-radius: 6px;
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+}
+.org-cat-card.donor .cat-tag { background: var(--green-700); color: white; }
+.org-cat-card.recipient .cat-tag { background: var(--orange-500); color: white; }
+.org-cat-card.partner .cat-tag { background: var(--gold); color: white; }
+.org-cat-card h4 {
+  font-family: "Noto Serif JP", serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--green-900);
+  margin-bottom: 8px;
+}
+.org-cat-card .desc {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+.org-list {
+  list-style: none;
+  text-align: left;
+}
+.org-list li {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green-900);
+  padding: 10px 12px;
+  background: var(--green-50);
+  border-radius: 8px;
+  margin-bottom: 6px;
+  border-left: 3px solid var(--green-500);
+}
+.org-cat-card.recipient .org-list li {
+  background: var(--orange-50);
+  border-left-color: var(--orange-500);
+  color: var(--orange-700);
+}
+.org-cat-card.partner .org-list li {
+  background: #fef3c7;
+  border-left-color: var(--gold);
+  color: var(--orange-900);
+}
+.tba {
+  display: inline-block;
+  font-size: 11px;
+  color: var(--ink-soft);
+  font-style: italic;
+  padding: 8px 0;
+}
+.org-recruit-cta {
+  text-align: center;
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  border: 2px dashed var(--orange-400);
+}
+.org-recruit-cta p {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--orange-700);
+  margin-bottom: 14px;
+}
+
+@media (max-width: 900px) {
+  .org-cat-grid { grid-template-columns: 1fr; }
+}
+
+/* ========== SECTION 8: CONTACT ========== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+.contact-info {
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.18);
+  border-radius: 20px;
+  padding: 36px;
+}
+.contact-info h4 {
+  font-family: "Noto Serif JP", serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 6px;
+}
+.contact-info .org-en {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.08em;
+  margin-bottom: 22px;
+}
+.contact-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  align-items: center;
+}
+.contact-row:last-of-type { border-bottom: none; }
+.contact-row .key {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--orange-300);
+  letter-spacing: 0.06em;
+}
+.contact-row .val {
+  font-size: 14px;
+  color: white;
+  word-break: break-all;
+}
+.contact-row .val a { color: var(--orange-300); text-decoration: underline; }
+.contact-cta {
+  background: white;
+  color: var(--ink);
+  border-radius: 20px;
+  padding: 36px;
+  text-align: center;
+}
+.contact-cta h5 {
+  font-family: "Noto Serif JP", serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--green-900);
+  margin-bottom: 8px;
+}
+.contact-cta p {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-bottom: 20px;
+  line-height: 1.7;
+}
+.contact-cta .btn-row {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.contact-cta .btn { width: 100%; justify-content: center; }
+.contact-cta .btn-primary { font-size: 14px; padding: 14px 20px; }
+.contact-cta .btn-secondary { font-size: 14px; padding: 14px 20px; }
+
+@media (max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  background: #0a2818;
+  color: white;
+  padding: 56px 0 24px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 36px;
+}
+.footer-org h4 {
+  font-family: "Noto Serif JP", serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 12px;
+}
+.footer-org p {
+  font-size: 13px;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.72);
+}
+.footer h5 {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: var(--orange-300);
+  margin-bottom: 14px;
+}
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: 8px; }
+.footer ul li a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.72);
+  transition: color 0.15s;
+}
+.footer ul li a:hover { color: white; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: 20px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 10px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+}
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+}
+
+/* ========== FAB ========== */
+.fab {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  z-index: 90;
+  background: linear-gradient(135deg, var(--orange-500), var(--red-500));
+  color: white;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 900;
+  box-shadow: 0 14px 28px rgba(234,88,12,0.45);
+  display: inline-flex; align-items: center; gap: 8px;
+  animation: btn-glow 2.4s infinite;
+}
 .fab:hover { transform: translateY(-2px); }
-
+.fab .ico { font-size: 16px; }
+@media (max-width: 600px) {
+  .fab { bottom: 16px; right: 16px; padding: 12px 18px; font-size: 13px; }
+}
 </style>
 </head>
 <body id="top">
+
+<!-- ========== ANNOUNCEMENT BAR ========== -->
 <div class="announce-bar">
   <span class="pulse-dot"></span>
   説明会 開催中｜毎週水曜 14:00〜（5/13〜7/29 全12回）
   <a href="https://forms.gle/RJXcNHcC1bHo4B7p9" target="_blank" rel="noopener">▶ 申し込みフォーム</a>
 </div>
+
+<!-- ========== HEADER ========== -->
 <header class="site-header">
   <div class="container">
     <a href="#top" class="brand">
@@ -233,13 +1530,13 @@ a { color: inherit; text-decoration: none; }
   </div>
 </header>
 
-<!-- HERO -->
+<!-- ========== HERO ========== -->
 <section class="hero">
   <div class="container">
     <div>
       <span class="recruit-badge"><span class="icon"></span>第2弾実証実験 参加者 募集中</span>
       <h1>
-        <span class="o">&quot;もったいない&quot;</span>を、<br>
+        <span class="o">"もったいない"</span>を、<br>
         <span class="highlight">必要な人</span>へ。<br>
         いますぐ、届けたい。
       </h1>
@@ -255,116 +1552,671 @@ a { color: inherit; text-decoration: none; }
       </div>
     </div>
     <div class="hero-visual">
-      <svg viewBox="0 0 480 420" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 480 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="食品寄附マッチングのイメージ図">
         <defs>
-          <linearGradient id="bg-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#fff7ed"/><stop offset="100%" stop-color="#fffaf3"/></linearGradient>
-          <linearGradient id="g-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#16a34a"/><stop offset="100%" stop-color="#2d7a3e"/></linearGradient>
-          <linearGradient id="o-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="#ea580c"/></linearGradient>
+          <linearGradient id="bg-grad" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stop-color="#fff7ed"/>
+            <stop offset="100%" stop-color="#fffaf3"/>
+          </linearGradient>
+          <linearGradient id="g-grad" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stop-color="#16a34a"/>
+            <stop offset="100%" stop-color="#2d7a3e"/>
+          </linearGradient>
+          <linearGradient id="o-grad" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stop-color="#f97316"/>
+            <stop offset="100%" stop-color="#ea580c"/>
+          </linearGradient>
         </defs>
         <rect x="0" y="0" width="480" height="420" rx="24" fill="url(#bg-grad)"/>
-        <g transform="translate(40, 60)"><rect x="0" y="0" width="120" height="120" rx="20" fill="url(#g-grad)"/><text x="60" y="50" text-anchor="middle" font-size="38" fill="white">🏭</text><text x="60" y="92" text-anchor="middle" font-size="13" fill="white" font-weight="800">提供企業</text><text x="60" y="108" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">DONOR</text></g>
-        <g transform="translate(180, 130)"><circle cx="60" cy="60" r="70" fill="white" stroke="#d97706" stroke-width="3" stroke-dasharray="6 4"/><circle cx="60" cy="60" r="50" fill="#d97706"/><text x="60" y="55" text-anchor="middle" font-size="14" fill="white" font-weight="900">マッチング</text><text x="60" y="74" text-anchor="middle" font-size="14" fill="white" font-weight="900">プラット</text><text x="60" y="90" text-anchor="middle" font-size="14" fill="white" font-weight="900">フォーム</text></g>
-        <g transform="translate(320, 60)"><rect x="0" y="0" width="120" height="120" rx="20" fill="url(#o-grad)"/><text x="60" y="50" text-anchor="middle" font-size="36" fill="white">🤝</text><text x="60" y="92" text-anchor="middle" font-size="13" fill="white" font-weight="800">食料支援団体</text><text x="60" y="108" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">RECIPIENT</text></g>
-        <g transform="translate(40, 270)"><rect x="0" y="0" width="400" height="115" rx="16" fill="white" stroke="#dcfce7" stroke-width="2"/><text x="200" y="30" text-anchor="middle" font-size="12" font-weight="800" fill="#14532d">食糧支援団体を通じて必要としている人へ届く</text><text x="80" y="68" text-anchor="middle" font-size="26">👶</text><text x="80" y="92" text-anchor="middle" font-size="10" fill="#4b5563">こども食堂</text><text x="160" y="68" text-anchor="middle" font-size="26">🏠</text><text x="160" y="92" text-anchor="middle" font-size="10" fill="#4b5563">フードパントリー</text><text x="240" y="68" text-anchor="middle" font-size="26">📦</text><text x="240" y="92" text-anchor="middle" font-size="10" fill="#4b5563">フードバンク</text><text x="320" y="68" text-anchor="middle" font-size="26">🏢</text><text x="320" y="92" text-anchor="middle" font-size="10" fill="#4b5563">大規模フードバンク</text></g>
+
+        <!-- DONOR -->
+        <g transform="translate(40, 60)">
+          <rect x="0" y="0" width="120" height="120" rx="20" fill="url(#g-grad)"/>
+          <text x="60" y="50" text-anchor="middle" font-size="38" fill="white">🏭</text>
+          <text x="60" y="92" text-anchor="middle" font-size="13" fill="white" font-weight="800">提供企業</text>
+          <text x="60" y="108" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">DONOR</text>
+        </g>
+
+        <!-- PLATFORM -->
+        <g transform="translate(180, 130)">
+          <circle cx="60" cy="60" r="70" fill="white" stroke="#d97706" stroke-width="3" stroke-dasharray="6 4"/>
+          <circle cx="60" cy="60" r="50" fill="#d97706"/>
+          <text x="60" y="55" text-anchor="middle" font-size="14" fill="white" font-weight="900">マッチング</text>
+          <text x="60" y="74" text-anchor="middle" font-size="14" fill="white" font-weight="900">プラット</text>
+          <text x="60" y="90" text-anchor="middle" font-size="14" fill="white" font-weight="900">フォーム</text>
+        </g>
+
+        <!-- RECIPIENT -->
+        <g transform="translate(320, 60)">
+          <rect x="0" y="0" width="120" height="120" rx="20" fill="url(#o-grad)"/>
+          <text x="60" y="50" text-anchor="middle" font-size="36" fill="white">🤝</text>
+          <text x="60" y="92" text-anchor="middle" font-size="13" fill="white" font-weight="800">食料支援団体</text>
+          <text x="60" y="108" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">RECIPIENT</text>
+        </g>
+
+        <!-- ARROWS -->
+        <g stroke="#16a34a" stroke-width="3" fill="none" stroke-linecap="round">
+          <path d="M 165 120 Q 180 130 195 165"/>
+          <path d="M 192 158 L 198 168 L 188 168" fill="#16a34a" stroke="none"/>
+        </g>
+        <g stroke="#ea580c" stroke-width="3" fill="none" stroke-linecap="round">
+          <path d="M 285 165 Q 305 135 320 120"/>
+          <path d="M 318 128 L 322 118 L 312 122" fill="#ea580c" stroke="none"/>
+        </g>
+
+        <!-- BENEFICIARIES -->
+        <g transform="translate(40, 270)">
+          <rect x="0" y="0" width="400" height="115" rx="16" fill="white" stroke="#dcfce7" stroke-width="2"/>
+          <text x="200" y="30" text-anchor="middle" font-size="12" font-weight="800" fill="#14532d">食糧支援団体を通じて必要としている人へ届く</text>
+          <text x="80" y="68" text-anchor="middle" font-size="26">👶</text>
+          <text x="80" y="92" text-anchor="middle" font-size="10" fill="#4b5563">こども食堂</text>
+          <text x="160" y="68" text-anchor="middle" font-size="26">🏠</text>
+          <text x="160" y="92" text-anchor="middle" font-size="10" fill="#4b5563">フードパントリー</text>
+          <text x="240" y="68" text-anchor="middle" font-size="26">📦</text>
+          <text x="240" y="92" text-anchor="middle" font-size="10" fill="#4b5563">フードバンク</text>
+          <text x="320" y="68" text-anchor="middle" font-size="26">🏢</text>
+          <text x="320" y="92" text-anchor="middle" font-size="10" fill="#4b5563">大規模フードバンク</text>
+        </g>
+
+        <!-- speed marks -->
+        <g fill="#ea580c" opacity="0.6">
+          <circle cx="240" cy="220" r="4"/>
+          <circle cx="220" cy="240" r="3"/>
+          <circle cx="260" cy="240" r="3"/>
+        </g>
       </svg>
     </div>
   </div>
 </section>
 
-<!-- PROJECT -->
+<!-- ========== SECTION 1: PROJECT ========== -->
 <section class="section" id="project">
   <div class="container">
     <div class="section-head">
       <span class="eyebrow">PROJECT</span>
       <h2 class="section-title-h2">①&nbsp;<span class="em">プロジェクト</span>について</h2>
-      <p class="section-sub">日本では、年間約464万トンの食品が廃棄される一方で、必要な食品が届かない人々がいます。この矛盾を、<strong>テクノロジーとネットワーク</strong>の力で埋めるのが、私たちのミッションです。</p>
+      <p class="section-sub">
+        日本では、年間約464万トンの食品が廃棄される一方で、必要な食品が届かない人々がいます。
+        この矛盾を、<strong>テクノロジーとネットワーク</strong>の力で埋めるのが、私たちのミッションです。
+      </p>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
-      <div>
-        <h3 style="font-family:'Noto Serif JP',serif;font-size:24px;color:var(--green-900);font-weight:800;margin-bottom:18px;line-height:1.5;">第2弾実証実験──"食品ロス × 食料支援"の最後のピースを埋める。</h3>
-        <p style="font-size:15px;color:var(--ink-soft);margin-bottom:16px;line-height:1.95;">食品寄附マッチングプラットフォームは、<strong style="color:var(--orange-700)">食品提供企業</strong>と<strong style="color:var(--orange-700)">食料支援団体</strong>をオンラインで瞬時につなぐ、日本初の仕組みです。第1弾実証実験では、大規模フードバンクとの物流連携モデルを検証してきました。</p>
-        <p style="font-size:15px;color:var(--ink-soft);margin-bottom:16px;line-height:1.95;">第2弾では、対象を一気に拡大します。<strong style="color:var(--orange-700)">大規模フードバンクから、地域のフードパントリー、こども食堂まで</strong>——これまで届けられなかった「賞味期限切迫品」や「少量品」も、配達・引き取り可能な距離感の支援団体へ、迅速にマッチングします。</p>
-        <p style="font-size:15px;color:var(--ink-soft);margin-bottom:16px;line-height:1.95;">食品ロスを"出さない"のではなく、<strong style="color:var(--orange-700)">"無駄にしない"</strong>。そのための社会インフラを、皆さまと一緒に育てていきたい。ぜひ、この実験への参加をご検討ください。</p>
-      </div>
-      <div style="background:white;border-radius:20px;padding:32px;box-shadow:0 10px 30px rgba(20,83,45,0.08);border:1.5px solid #dcfce7;">
-        <h4 style="font-size:14px;font-weight:900;color:var(--orange-500);letter-spacing:0.12em;margin-bottom:22px;">実証実験 概要</h4>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px dashed #e5e7eb;"><span style="font-size:14px;color:var(--ink-soft);font-weight:600;">実証実験フェーズ</span><span style="font-family:'Noto Serif JP',serif;font-size:22px;font-weight:900;color:var(--green-700);">第２弾</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px dashed #e5e7eb;"><span style="font-size:14px;color:var(--ink-soft);font-weight:600;">対象食品</span><span style="font-size:14px;font-weight:800;color:var(--ink);text-align:right;">食品ロス／賞味期限切迫品／規格外野菜／防災備蓄品</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px dashed #e5e7eb;"><span style="font-size:14px;color:var(--ink-soft);font-weight:600;">対象団体</span><span style="font-size:13px;font-weight:800;color:var(--ink);line-height:1.5;text-align:right;">大規模フードバンク／フードバンク／<br>フードパントリー／こども食堂</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px dashed #e5e7eb;"><span style="font-size:14px;color:var(--ink-soft);font-weight:600;">参加費</span><span style="font-family:'Noto Serif JP',serif;font-size:22px;font-weight:900;color:var(--orange-500);">無料</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;"><span style="font-size:14px;color:var(--ink-soft);font-weight:600;">利用開始</span><span style="font-size:13px;font-weight:800;color:var(--ink);line-height:1.5;text-align:right;">ご登録後、<br>承認完了次第ご利用開始</span></div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- SEMINAR -->
-<section class="section" id="seminar" style="background:linear-gradient(180deg,#fff7ed 0%,#fffaf3 100%);padding:80px 0;">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:24px;">
-      <h2 style="font-family:'Noto Serif JP',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--green-900);margin-bottom:12px;">⑥&nbsp;<span style="color:var(--orange-500);">説明会</span>に参加する</h2>
-      <p style="font-size:17px;color:var(--ink-soft);max-width:760px;margin:0 auto 40px;line-height:1.9;">第2弾実証実験の<strong style="color:var(--orange-700)">背景・仕組み・参加メリット・運用ルール</strong>を、事務局メンバーが直接ご説明します。<br><strong style="color:var(--orange-700)">ご質問のお時間</strong>も設けています。<br>個別の相談も受け付けています。<a href="mailto:mu@jfra2022.org" style="color:var(--orange-700);font-weight:800;text-decoration:underline;">mu@jfra2022.org</a> までお気軽にご連絡ください。</p>
-    </div>
-    <div style="background:linear-gradient(135deg,var(--green-900),var(--green-700));border-radius:20px;padding:36px 40px;text-align:center;margin-bottom:32px;color:white;">
-      <div style="display:inline-block;background:var(--orange-500);color:white;font-size:12px;font-weight:900;padding:5px 16px;border-radius:999px;letter-spacing:0.1em;margin-bottom:16px;">毎週開催・全12回</div>
-      <div style="font-family:'Noto Serif JP',serif;font-weight:900;font-size:clamp(36px,5vw,56px);color:var(--orange-300);margin-bottom:8px;">水曜日　14:00 - 15:00</div>
-      <div style="font-size:16px;font-weight:700;color:rgba(255,255,255,0.92);">2026年 5月13日（水） 〜 7月29日（水）</div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.75);margin-top:6px;">オンライン（Google Meet）／ご都合の良い回にご参加ください</div>
-    </div>
-    <div style="background:linear-gradient(135deg,#fff7ed 0%,#ffedd5 50%,#fff7ed 100%);border-radius:24px;padding:48px 32px;text-align:center;border:3px solid var(--orange-500);box-shadow:0 20px 50px rgba(234,88,12,0.18);">
-      <div style="font-size:14px;font-weight:900;color:var(--orange-700);letter-spacing:0.12em;margin-bottom:8px;">＼ 申し込みはこちら ／</div>
-      <h3 style="font-family:'Noto Serif JP',serif;font-size:clamp(24px,3vw,32px);font-weight:900;color:var(--green-900);margin-bottom:12px;">Googleフォームで参加申込</h3>
-      <p style="font-size:14px;color:var(--ink-soft);margin-bottom:28px;line-height:1.85;">下記ボタンから申込フォームへお進みください。<br>送信後、当日のご案内メールをお送りします。</p>
-      <a href="https://forms.gle/RJXcNHcC1bHo4B7p9" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:18px;background:linear-gradient(135deg,var(--orange-500),var(--red-500));color:white;padding:20px 36px;border-radius:16px;box-shadow:0 14px 32px rgba(234,88,12,0.45);text-align:left;transition:all 0.2s;">
-        <span style="font-size:30px;background:rgba(255,255,255,0.2);border-radius:12px;padding:8px 12px;">📝</span>
-        <span style="display:flex;flex-direction:column;gap:2px;">
-          <span style="font-size:18px;font-weight:900;letter-spacing:0.04em;">説明会に申し込む</span>
-          <span style="font-size:12px;color:rgba(255,255,255,0.9);font-weight:600;">Googleフォームで申込み（所要時間 約2分）</span>
-        </span>
-        <span style="font-size:24px;font-weight:900;margin-left:6px;">→</span>
-      </a>
-      <small style="display:block;margin-top:16px;font-size:12px;color:var(--ink-soft);">※ お申込み後、3営業日以内に確認メールをお送りします。</small>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="section dark" id="contact">
-  <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">CONTACT</span>
-      <h2 class="section-title-h2">⑧&nbsp;お<span class="em">問い合わせ</span></h2>
-      <p class="section-sub">ご不明な点は、お気軽にお問い合わせください。個別相談・取材・連携のご相談も承っております。</p>
-    </div>
-    <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:start;">
-      <div style="background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.18);border-radius:20px;padding:36px;">
-        <h4 style="font-family:'Noto Serif JP',serif;font-size:22px;font-weight:900;color:white;margin-bottom:6px;">一般社団法人 日本フードリカバリー協会</h4>
-        <div style="font-size:12px;color:rgba(255,255,255,0.6);letter-spacing:0.08em;margin-bottom:22px;">JAPAN FOOD RECOVERY ASSOCIATION</div>
-        <div style="display:grid;grid-template-columns:100px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.12);align-items:center;"><span style="font-size:12px;font-weight:800;color:var(--orange-300);">E-mail</span><a href="mailto:mu@jfra2022.org" style="font-size:14px;color:var(--orange-300);text-decoration:underline;">mu@jfra2022.org</a></div>
-        <div style="display:grid;grid-template-columns:100px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.12);align-items:center;"><span style="font-size:12px;font-weight:800;color:var(--orange-300);">Web</span><a href="https://foodmatching.jp/" target="_blank" rel="noopener" style="font-size:14px;color:var(--orange-300);text-decoration:underline;">https://foodmatching.jp/</a></div>
-        <div style="display:grid;grid-template-columns:100px 1fr;gap:12px;padding:14px 0;align-items:center;"><span style="font-size:12px;font-weight:800;color:var(--orange-300);">対応時間</span><span style="font-size:14px;color:white;">平日 10:00〜18:00（土日祝・年末年始除く）</span></div>
+    <div class="project-intro">
+      <div class="text">
+        <h3>第2弾実証実験──<br>"食品ロス × 食料支援"の最後のピースを埋める。</h3>
+        <p>
+          食品寄附マッチングプラットフォームは、<strong>食品提供企業</strong>と<strong>食料支援団体</strong>を
+          オンラインで瞬時につなぐ、日本初の仕組みです。第1弾実証実験では、大規模フードバンクとの
+          物流連携モデルを検証してきました。
+        </p>
+        <p>
+          第2弾では、対象を一気に拡大します。<strong>大規模フードバンクから、地域のフードパントリー、
+          こども食堂まで</strong>——これまで届けられなかった「賞味期限切迫品」や「少量品」も、
+          配達・引き取り可能な距離感の支援団体へ、迅速にマッチングします。
+        </p>
+        <p>
+          食品ロスを"出さない"のではなく、<strong>"無駄にしない"</strong>。
+          そのための社会インフラを、皆さまと一緒に育てていきたい。
+          ぜひ、この実験への参加をご検討ください。
+        </p>
       </div>
-      <div style="background:white;color:var(--ink);border-radius:20px;padding:36px;text-align:center;">
-        <h5 style="font-family:'Noto Serif JP',serif;font-size:18px;font-weight:900;color:var(--green-900);margin-bottom:8px;">説明会参加が"いちばん近道"です</h5>
-        <p style="font-size:13px;color:var(--ink-soft);margin-bottom:20px;line-height:1.7;">お問い合わせよりも先に、説明会で全体像をご理解いただくのが、最もスムーズなご検討方法です。</p>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <a href="https://forms.gle/RJXcNHcC1bHo4B7p9" target="_blank" rel="noopener" class="btn btn-primary">▶ 説明会に申し込む</a>
-          <a href="mailto:mu@jfra2022.org" class="btn btn-secondary">✉ メールで問い合わせる</a>
+      <div class="project-stat-card">
+        <h4>実証実験 概要</h4>
+        <div class="stat-row">
+          <span class="label">実証実験フェーズ</span>
+          <span class="value">第<small>　</small>2<small>　</small>弾</span>
+        </div>
+        <div class="stat-row">
+          <span class="label">対象食品</span>
+          <span class="value" style="font-size:14px;font-weight:800;color:var(--ink);">食品ロス／賞味期限切迫品／規格外野菜／防災備蓄品</span>
+        </div>
+        <div class="stat-row">
+          <span class="label">対象団体</span>
+          <span class="value" style="font-size:13px;font-weight:800;color:var(--ink);line-height:1.5;text-align:right;">大規模フードバンク／フードバンク／<br>フードパントリー／こども食堂</span>
+        </div>
+        <div class="stat-row">
+          <span class="label">参加費</span>
+          <span class="value" style="color:var(--orange-500);">無<small>　</small>料</span>
+        </div>
+        <div class="stat-row">
+          <span class="label">利用開始</span>
+          <span class="value" style="font-size:13px;font-weight:800;color:var(--ink);line-height:1.5;text-align:right;">ご登録後、<br>承認完了次第ご利用開始</span>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- ========== SECTION 2: VISION ========== -->
+<section class="section alt" id="vision">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">VISION</span>
+      <h2 class="section-title-h2">②&nbsp;私たちが<span class="em">めざす世界</span></h2>
+      <p class="section-sub">
+        "出てしまった"食品ロスを、"必要としている人"のもとへ。<br>
+        タイムリーに、スピード感をもって。
+      </p>
+    </div>
+
+    <div class="vision-hero">
+      <p class="vision-statement">
+        食品企業から<span class="accent">イレギュラーで出てしまった食品ロス</span>、<br>
+        防災備蓄品の<span class="accent">賞味期限切迫品</span>、農家さんの<span class="accent">規格外野菜</span>──<br>
+        その情報をリアルタイムで集約し、食料支援団体にマッチング。<br>
+        <span class="o">より多くの食品ロスを、より多くの必要としている人へ。</span>
+      </p>
+    </div>
+
+    <div class="vision-pillars">
+      <div class="pillar-card">
+        <div class="icon">⏱️</div>
+        <h4>TIMELY<br>タイムリーに</h4>
+        <p>賞味期限が迫る食品も、リアルタイムマッチングで"間に合わせる"。情報公開から<strong>最短当日マッチング</strong>。</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon">🚀</div>
+        <h4>SPEEDY<br>スピード感をもって</h4>
+        <p>これまで対象団体の選定・契約・電話・メールでの調整に数日かかっていた寄付プロセスを、<strong>Webで一気通貫</strong>。マッチングまでの時間を大幅短縮。</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon">🌐</div>
+        <h4>ALL-INCLUSIVE<br>あらゆる規模で</h4>
+        <p>大規模フードバンクから、地域のフードパントリー、こども食堂まで。<strong>配達・引き取り可能な距離感</strong>の寄付を実現。</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon">📤</div>
+        <h4>HASSLE-FREE<br>気軽に登録</h4>
+        <p>支援団体が希望する<strong>商品・数量と合うかを気にせず</strong>、まずは食品情報を登録するだけ。マッチングはプラットフォームが自動でつなぎます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 3: PLATFORM FLOW ========== -->
+<section class="section" id="flow">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">PLATFORM</span>
+      <h2 class="section-title-h2">③&nbsp;<span class="em">マッチングプラットフォーム</span>の流れ</h2>
+      <p class="section-sub">
+        寄付する側も、受け取る側も、シンプルな4ステップ。<br>
+        Webブラウザだけで完結する、ストレスのない設計です。
+      </p>
+    </div>
+
+    <div class="flow-wrap">
+      <!-- DONOR FLOW -->
+      <div class="flow-row donor">
+        <div class="flow-label">
+          <div class="role-icon">🏭</div>
+          <div class="role-tag">DONOR FLOW</div>
+          <div class="role-name">寄付者の流れ</div>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="num">1</div>
+            <h5>食品情報を登録</h5>
+            <p>品目・数量・賞味期限・所在地を入力</p>
+          </div>
+          <div class="flow-step">
+            <div class="num">2</div>
+            <h5>マッチング待ち</h5>
+            <p>近隣の支援団体に自動通知</p>
+          </div>
+          <div class="flow-step">
+            <div class="num">3</div>
+            <h5>受取団体決定</h5>
+            <p>引き取り日時・方法を調整</p>
+          </div>
+          <div class="flow-step">
+            <div class="num">4</div>
+            <h5>引渡し完了</h5>
+            <p>受領証明・トレーサビリティ管理</p>
+          </div>
+        </div>
+      </div>
+      <!-- RECIPIENT FLOW -->
+      <div class="flow-row recipient">
+        <div class="flow-label">
+          <div class="role-icon">🤝</div>
+          <div class="role-tag">RECIPIENT FLOW</div>
+          <div class="role-name">食料支援団体の流れ</div>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="num">1</div>
+            <h5>提供情報を確認</h5>
+            <p>近隣で出た食品をリアルタイム閲覧</p>
+          </div>
+          <div class="flow-step">
+            <div class="num">2</div>
+            <h5>受取をリクエスト</h5>
+            <p>必要数量・引取可否をワンクリック</p>
+          </div>
+          <div class="flow-step">
+            <div class="num">3</div>
+            <h5>受取確定</h5>
+            <p>配送 or 引取の選択・スケジュール確定</p>
+          </div>
+          <div class="flow-step">
+            <div class="num">4</div>
+            <h5>受領＆配布</h5>
+            <p>必要としている方へお届け</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 4: HOW TO USE ========== -->
+<section class="section cream" id="usage">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">HOW TO USE</span>
+      <h2 class="section-title-h2">④&nbsp;システムの<span class="em">使い方</span></h2>
+      <p class="section-sub">
+        登録から運用まで、特別な機材は一切不要。<br>
+        スマホ・PCのブラウザがあれば、どなたでもすぐにご利用いただけます。
+      </p>
+    </div>
+
+    <div class="usage-duo">
+      <div class="usage-col donor">
+        <span class="role-pill">FOR DONOR</span>
+        <h3>寄付者（提供企業・自治体・農家）</h3>
+        <ol class="usage-list">
+          <li><strong>無料アカウント登録</strong><span class="small">企業情報・拠点情報を入力（最短10分）</span></li>
+          <li><strong>食品情報を投稿</strong><span class="small">品目・数量・賞味期限・写真をアップロード。テンプレ化で繰返し投稿も簡単</span></li>
+          <li><strong>マッチング結果を確認</strong><span class="small">受取団体からのリクエストを確認・承認</span></li>
+          <li><strong>引渡し方法を選択</strong><span class="small">①配送依頼／②受取団体による引取／③物流事業者連携 から選択</span></li>
+          <li><strong>引渡し完了 → 寄付実績ダウンロード</strong><span class="small">CSR報告書・税控除書類に活用可能なPDFを発行</span></li>
+        </ol>
+      </div>
+      <div class="usage-col recipient">
+        <span class="role-pill">FOR RECIPIENT</span>
+        <h3>食料支援団体（フードバンク・パントリー・こども食堂）</h3>
+        <ol class="usage-list">
+          <li><strong>無料アカウント登録</strong><span class="small">団体情報・受取可能エリア・受入条件を登録</span></li>
+          <li><strong>食品情報を閲覧</strong><span class="small">近隣で出た食品をリアルタイムにマップ＆リスト表示</span></li>
+          <li><strong>受取リクエスト</strong><span class="small">必要数量・引取可能日時を送信（複数団体間で先着 or 配分）</span></li>
+          <li><strong>受取・配送調整</strong><span class="small">寄付者と直接または事務局経由でやりとり。配送依頼も可能</span></li>
+          <li><strong>受領報告 → 配布</strong><span class="small">受領数量を記録し、利用者へ配布。実績はダッシュボードで一元管理</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 5: REGISTER ========== -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">REGISTER</span>
+      <h2 class="section-title-h2">⑤&nbsp;<span class="em">登録</span>はこちら</h2>
+      <p class="section-sub">
+        まずはアカウント登録から。登録は無料、所要時間 約10分です。
+      </p>
+    </div>
+
+    <div class="register-band">
+      <div>
+        <h3>すぐに使い始める方は、<br><span class="em">こちらから登録</span>できます。</h3>
+        <p>
+          食品提供企業・食料支援団体、どちらの方でも同じURLからご登録いただけます。
+          登録後すぐに、食品情報の投稿・閲覧が可能になります。
+        </p>
+        <span class="url-display">
+          <span class="icon">🔗</span>
+          https://foodmatching.jp/
+        </span>
+      </div>
+      <div class="btn-stack">
+        <a href="https://foodmatching.jp/" target="_blank" rel="noopener" class="btn btn-primary">
+          サイトを開いて登録 <span class="arrow">→</span>
+        </a>
+        <a href="#seminar" class="btn btn-secondary">
+          まず説明会で詳しく聞く
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 6: SEMINAR (HIGHLIGHTED) ========== -->
+<section class="seminar-section" id="seminar">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:8px;">
+      <span class="seminar-eyebrow"><span class="live-dot"></span>SEMINAR&nbsp;NOW&nbsp;OPEN&nbsp;／&nbsp;説明会 開催中</span>
+    </div>
+    <h2 class="seminar-title">
+      ⑥&nbsp;<span class="em">説明会</span>に<br class="sp-only">
+      <span class="accent">参加する</span>
+    </h2>
+    <p class="seminar-sub">
+      第2弾実証実験の<strong>背景・仕組み・参加メリット・運用ルール</strong>を、
+      事務局メンバーが直接ご説明します。<br>
+      <strong>ご質問のお時間</strong>も設けています。お気軽にご参加ください。<br>
+      個別の相談も受け付けています。<a href="mailto:mu@jfra2022.org" style="color:var(--orange-700);font-weight:800;text-decoration:underline;">mu@jfra2022.org</a> までお気軽にご連絡ください。
+    </p>
+
+    <!-- WEEKLY HEADLINE -->
+    <div class="weekly-headline">
+      <div class="weekly-tag">毎週開催・全12回</div>
+      <div class="weekly-main">
+        <span class="weekly-dow">水曜日</span>
+        <span class="weekly-time">14:00 - 15:00</span>
+      </div>
+      <div class="weekly-period">2026年 5月13日（水） 〜 7月29日（水）</div>
+      <div class="weekly-format">オンライン（Google Meet）／ご都合の良い回にご参加ください</div>
+    </div>
+
+    <div class="seminar-grid">
+      <div class="seminar-card">
+        <h4><span class="ico">📅</span>開催日程（全12回）</h4>
+        <p style="font-size:13px;color:var(--ink-soft);margin-bottom:14px;">いずれの回も<strong style="color:var(--orange-700);">14:00〜15:00（60分）</strong>で同じ内容です。お好きな回にご参加ください。</p>
+        <div class="date-grid">
+          <div class="date-pill"><div class="m">5月</div><div class="d">13</div><div class="w">水</div></div>
+          <div class="date-pill"><div class="m">5月</div><div class="d">20</div><div class="w">水</div></div>
+          <div class="date-pill"><div class="m">5月</div><div class="d">27</div><div class="w">水</div></div>
+          <div class="date-pill"><div class="m">6月</div><div class="d">3</div><div class="w">水</div></div>
+          <div class="date-pill"><div class="m">6月</div><div class="d">10</div><div class="w">水</div></div>
+          <div class="date-pill"><div class="m">6月</div><div class="d">17</div><div class="w">水</div></div>
+          <div class="date-pill"><div class="m">6月</div><div class="d">24</div><div class="w">水</div></div>
+          <div class="date-pill"><div class="m">7月</div><div class="d">1</div><div class="w">水</div></div>
+          <div class="date-pill"><div class="m">7月</div><div class="d">8</div><div class="w">水</div></div>
+          <div class="date-pill"><div class="m">7月</div><div class="d">15</div><div class="w">水</div></div>
+          <div class="date-pill"><div class="m">7月</div><div class="d">22</div><div class="w">水</div></div>
+          <div class="date-pill"><div class="m">7月</div><div class="d">29</div><div class="w">水</div></div>
+        </div>
+        <p style="margin-top:14px;font-size:12px;color:var(--ink-soft);">※ 申込フォームでご希望日をお選びください。当日のGoogle Meetリンクは、お申込み後のご案内メールでお送りします。</p>
+      </div>
+
+      <div class="seminar-card">
+        <h4><span class="ico">📋</span>説明会アジェンダ（60分）</h4>
+        <ul class="agenda-list">
+          <li><strong>食品ロス／食料支援の現状</strong>と、第2弾実証実験の位置づけ（10分）</li>
+          <li>マッチングプラットフォームの<strong>仕組みとデモ</strong>（15分）</li>
+          <li>提供企業 × 食料支援団体それぞれの<strong>運用フロー</strong>（10分）</li>
+          <li>参加団体の<strong>役割・データの取り扱い・契約スキーム</strong>（10分）</li>
+          <li><strong>Q&Aセッション・個別相談</strong>（15分）</li>
+        </ul>
+        <div style="margin-top:18px;padding:14px;background:var(--orange-50);border-radius:10px;border-left:4px solid var(--orange-500);">
+          <div style="font-size:13px;font-weight:800;color:var(--orange-700);margin-bottom:4px;">📦 ご参加された方への特典</div>
+          <div style="font-size:12px;color:var(--ink-soft);line-height:1.7;">
+            実証実験の運用マニュアル（PDF）、登録マニュアル、第1弾実証実験の結果サマリーを後日メールでお送りします。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPLICATION CTA -->
+    <div class="apply-cta">
+      <div class="apply-cta-eyebrow">＼ 申し込みはこちら ／</div>
+      <h3>Googleフォームで参加申込</h3>
+      <p>下記ボタンから申込フォームへお進みください。<br>送信後、当日のご案内メールをお送りします。</p>
+      <a href="https://forms.gle/RJXcNHcC1bHo4B7p9" target="_blank" rel="noopener" class="apply-btn">
+        <span class="apply-btn-icon">📝</span>
+        <span class="apply-btn-text">
+          <span class="apply-btn-main">説明会に申し込む</span>
+          <span class="apply-btn-sub">Googleフォームで申込み（所要時間 約2分）</span>
+        </span>
+        <span class="apply-btn-arrow">→</span>
+      </a>
+      <small>※ お申込み後、3営業日以内に確認メールをお送りします。</small>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 7: PARTICIPATING ORGS ========== -->
+<section class="section alt" id="orgs">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">PARTICIPATING ORGANIZATIONS</span>
+      <h2 class="section-title-h2">⑦&nbsp;プロジェクト<span class="em">参加団体</span></h2>
+      <p class="section-sub">
+        第1弾実証実験から継続してご協力いただいている団体、第2弾より新規参画される団体。<br>
+        多様なプレイヤーが集まり、食品寄附の新しいインフラを共創しています。
+      </p>
+    </div>
+
+    <div class="org-cat-grid">
+      <div class="org-cat-card donor">
+        <span class="cat-tag">食品提供企業</span>
+        <h4>DONOR ORGANIZATIONS</h4>
+        <p class="desc">食品流通の上流から、製造・輸入・販売まで。食品ロスを抱えるあらゆる事業者が参画</p>
+        <ul class="org-list">
+          <li>大手食品卸</li>
+          <li>食品輸入商社</li>
+          <li>食品メーカー</li>
+          <li>青果問屋</li>
+          <li>一般企業 など</li>
+        </ul>
+        <p class="tba">※ 公開可能になり次第、団体名を順次掲載します</p>
+      </div>
+
+      <div class="org-cat-card recipient">
+        <span class="cat-tag">食料支援団体</span>
+        <h4>RECIPIENT ORGANIZATIONS</h4>
+        <p class="desc">大規模フードバンクから地域のこども食堂まで、規模・形態を問わず参画</p>
+        <ul class="org-list">
+          <li>大規模フードバンク</li>
+          <li>フードバンク</li>
+          <li>フードパントリー</li>
+          <li>こども食堂</li>
+        </ul>
+        <p class="tba">※ 公開可能になり次第、団体名を順次掲載します</p>
+      </div>
+
+      <div class="org-cat-card partner">
+        <span class="cat-tag">運営・パートナー</span>
+        <h4>OPERATORS &amp; PARTNERS</h4>
+        <p class="desc">プラットフォーム運営、物流、商流、現場知見でプロジェクトを支える</p>
+        <ul class="org-list">
+          <li>一般社団法人 日本フードリカバリー協会</li>
+          <li>大手物流事業者</li>
+          <li>大手商社</li>
+          <li>食糧支援団体</li>
+        </ul>
+        <p class="tba">※ 公開可能になり次第、団体名を順次掲載します</p>
+      </div>
+    </div>
+
+    <div class="org-recruit-cta">
+      <p>＼ あなたの団体も、第2弾実証実験の"つくり手"になりませんか？ ／</p>
+      <a href="https://forms.gle/RJXcNHcC1bHo4B7p9" target="_blank" rel="noopener" class="btn btn-primary">説明会に申し込む <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 8: CONTACT ========== -->
+<section class="section dark" id="contact">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">CONTACT</span>
+      <h2 class="section-title-h2">⑧&nbsp;お<span class="em">問い合わせ</span></h2>
+      <p class="section-sub">
+        ご不明な点は、お気軽にお問い合わせください。<br>
+        個別相談・取材・連携のご相談も承っております。
+      </p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h4>一般社団法人 日本フードリカバリー協会</h4>
+        <div class="org-en">JAPAN FOOD RECOVERY ASSOCIATION</div>
+        <div class="contact-row">
+          <span class="key">事業名</span>
+          <span class="val">食品寄附マッチングプラットフォーム 第2弾実証実験</span>
+        </div>
+        <div class="contact-row">
+          <span class="key">担当窓口</span>
+          <span class="val">実証実験 事務局</span>
+        </div>
+        <div class="contact-row">
+          <span class="key">E-mail</span>
+          <span class="val"><a href="mailto:mu@jfra2022.org">mu@jfra2022.org</a></span>
+        </div>
+        <div class="contact-row">
+          <span class="key">Web</span>
+          <span class="val"><a href="https://foodmatching.jp/" target="_blank" rel="noopener">https://foodmatching.jp/</a></span>
+        </div>
+        <div class="contact-row">
+          <span class="key">対応時間</span>
+          <span class="val">平日 10:00〜18:00（土日祝・年末年始除く）</span>
+        </div>
+        <div class="contact-row">
+          <span class="key">返信目安</span>
+          <span class="val">3営業日以内（お急ぎの場合はその旨ご記載ください）</span>
+        </div>
+      </div>
+
+      <div class="contact-cta">
+        <h5>説明会参加が"いちばん近道"です</h5>
+        <p>
+          お問い合わせよりも先に、説明会で全体像をご理解いただくのが、最もスムーズなご検討方法です。
+          まずは下のボタンから、お気軽にお申込みください。
+        </p>
+        <div class="btn-row">
+          <a href="https://forms.gle/RJXcNHcC1bHo4B7p9" target="_blank" rel="noopener" class="btn btn-primary">▶ 説明会に申し込む</a>
+          <a href="mailto:mu@jfra2022.org?subject=%E7%AC%AC2%E5%BC%BE%E5%AE%9F%E8%A8%BC%E5%AE%9F%E9%A8%93%20%E5%80%8B%E5%88%A5%E3%81%8A%E5%95%8F%E5%90%88%E3%81%9B" class="btn btn-secondary">✉ メールで問い合わせる</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
 <footer class="footer">
   <div class="container">
-    <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;margin-bottom:36px;">
-      <div><h4 style="font-family:'Noto Serif JP',serif;font-size:17px;font-weight:800;color:white;margin-bottom:12px;">食品寄附マッチングプラットフォーム</h4><p style="font-size:13px;line-height:1.85;color:rgba(255,255,255,0.72);">食品ロスを必要としている人へ、タイムリーに、スピード感をもって届ける。一般社団法人 日本フードリカバリー協会が運営する、日本の食品寄附インフラです。</p></div>
-      <div><h5 style="font-size:12px;font-weight:900;letter-spacing:0.12em;color:var(--orange-300);margin-bottom:14px;">QUICK LINKS</h5><ul style="list-style:none;"><li style="margin-bottom:8px;"><a href="#project" style="font-size:13px;color:rgba(255,255,255,0.72);">プロジェクトについて</a></li><li style="margin-bottom:8px;"><a href="#seminar" style="font-size:13px;color:rgba(255,255,255,0.72);">説明会</a></li><li><a href="#contact" style="font-size:13px;color:rgba(255,255,255,0.72);">お問い合わせ</a></li></ul></div>
-      <div><h5 style="font-size:12px;font-weight:900;letter-spacing:0.12em;color:var(--orange-300);margin-bottom:14px;">JOIN &amp; CONTACT</h5><ul style="list-style:none;"><li style="margin-bottom:8px;"><a href="https://forms.gle/RJXcNHcC1bHo4B7p9" target="_blank" rel="noopener" style="font-size:13px;color:rgba(255,255,255,0.72);">▶ 説明会に申し込む</a></li><li style="margin-bottom:8px;"><a href="https://foodmatching.jp/" target="_blank" rel="noopener" style="font-size:13px;color:rgba(255,255,255,0.72);">アカウント登録（foodmatching.jp）</a></li><li><a href="mailto:mu@jfra2022.org" style="font-size:13px;color:rgba(255,255,255,0.72);">メールで問い合わせ</a></li></ul></div>
+    <div class="footer-grid">
+      <div class="footer-org">
+        <h4>食品寄附マッチングプラットフォーム</h4>
+        <p>
+          食品ロスを必要としている人へ、タイムリーに、スピード感をもって届ける。<br>
+          一般社団法人 日本フードリカバリー協会が運営する、日本の食品寄附インフラです。
+        </p>
+      </div>
+      <div>
+        <h5>QUICK LINKS</h5>
+        <ul>
+          <li><a href="#project">プロジェクトについて</a></li>
+          <li><a href="#vision">VISION</a></li>
+          <li><a href="#flow">マッチングの流れ</a></li>
+          <li><a href="#usage">システムの使い方</a></li>
+          <li><a href="#orgs">参加団体</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>JOIN &amp; CONTACT</h5>
+        <ul>
+          <li><a href="https://forms.gle/RJXcNHcC1bHo4B7p9" target="_blank" rel="noopener">▶ 説明会に申し込む</a></li>
+          <li><a href="https://foodmatching.jp/" target="_blank" rel="noopener">アカウント登録（foodmatching.jp）</a></li>
+          <li><a href="mailto:mu@jfra2022.org">メールで問い合わせ</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="footer-bottom"><span>© 2026 一般社団法人 日本フードリカバリー協会</span><span>第2弾実証実験 参加者募集ランディングページ</span></div>
+    <div class="footer-bottom">
+      <span>© 2026 一般社団法人 日本フードリカバリー協会</span>
+      <span>第2弾実証実験 参加者募集ランディングページ</span>
+    </div>
   </div>
 </footer>
-<a href="https://forms.gle/RJXcNHcC1bHo4B7p9" target="_blank" rel="noopener" class="fab"><span>📅</span>説明会に申し込む</a>
+
+<!-- ========== FAB ========== -->
+<a href="https://forms.gle/RJXcNHcC1bHo4B7p9" target="_blank" rel="noopener" class="fab" aria-label="説明会に申し込む"><span class="ico">📅</span>説明会に申し込む</a>
+
+<!-- ========== iframe-fill safety net (Google Sites mobile) ========== -->
+<div id="iframe-fill" aria-hidden="true" style="background:#0a2818;width:100%;min-height:0;"></div>
+
+<script>
+/* Smooth in-page anchor scrolling — works inside iframes (Google Sites)
+   and avoids issues with overflow-x styles on html/body. */
+(function () {
+  function smoothTo(target) {
+    if (!target) return;
+    try {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (e) {
+      target.scrollIntoView();
+    }
+    /* Try to scroll parent (Google Sites) too, in case the iframe has no internal scroll. */
+    try {
+      var rect = target.getBoundingClientRect();
+      var iframeTop = 0;
+      if (window.frameElement && window.frameElement.getBoundingClientRect) {
+        iframeTop = window.frameElement.getBoundingClientRect().top + (window.parent.pageYOffset || 0);
+      }
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'iframe-scroll-to',
+          y: iframeTop + rect.top - 40
+        }, '*');
+      }
+    } catch (e) { /* cross-origin — ignore */ }
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href === '#' || href.length < 2) return;
+    var id = href.slice(1);
+    var target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    smoothTo(target);
+    /* update URL hash without jumping */
+    if (history.replaceState) history.replaceState(null, '', href);
+  });
+})();
+
+/* Google Sites embed (iframe) compatibility:
+   - Notify parent of content height (iframe-resizer style) so embedding pages can adjust.
+   - If parent iframe is fixed-taller than content (causes white at bottom on mobile),
+     extend the dark "iframe-fill" element so the footer color visually fills the gap. */
+(function () {
+  function getDocHeight() {
+    return Math.max(
+      document.body.scrollHeight, document.body.offsetHeight,
+      document.documentElement.clientHeight,
+      document.documentElement.scrollHeight, document.documentElement.offsetHeight
+    );
+  }
+  function notify() {
+    try {
+      if (window.parent && window.parent !== window) {
+        var h = getDocHeight();
+        window.parent.postMessage({ type: 'iframe-resize', height: h }, '*');
+      }
+    } catch (e) { /* cross-origin — ignore */ }
+  }
+  function fillBottom() {
+    /* If our document is shorter than viewport, pad the bottom with footer color
+       so the iframe's white bg never bleeds through on mobile. */
+    var fill = document.getElementById('iframe-fill');
+    if (!fill) return;
+    var docH = getDocHeight();
+    var winH = window.innerHeight || document.documentElement.clientHeight;
+    if (docH < winH) {
+      fill.style.minHeight = (winH - docH + 80) + 'px';
+    } else {
+      fill.style.minHeight = '0px';
+    }
+  }
+  function tick() { notify(); fillBottom(); }
+  window.addEventListener('load', tick);
+  window.addEventListener('resize', tick);
+  window.addEventListener('orientationchange', tick);
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(tick).observe(document.body); } catch (e) {}
+  }
+  /* periodic ping in case Google Sites resizes the iframe later */
+  setInterval(tick, 1500);
+  /* run early too */
+  document.addEventListener('DOMContentLoaded', tick);
+})();
+</script>
+
 </body>
 </html>
